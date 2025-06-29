@@ -1,3 +1,20 @@
+"""
+task_A_Training.py
+
+This script trains a Gender Classification model (Task A) for the COMSYS Hackathon-5.
+It uses a pre-trained ConvNeXt-Small model and fine-tunes it on the FACECOM dataset
+with aggressive data augmentations to handle adverse visual conditions.
+
+The script is designed to be run from the command line with configurable arguments.
+
+Example Usage:
+    python src/task_A_Training.py \
+        --data-path ./data/FACECOM_dataset/Comys_Hackathon5/Task_A \
+        --save-path ./models/task_a_gender_classifier.pth \
+        --epochs 20 \
+        --batch-size 16 \
+        --lr 1e-4
+"""
 
 #  all imports are necessary for the script to function correctly
 import argparse

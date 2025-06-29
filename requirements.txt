@@ -1,0 +1,24 @@
+# Core ML/DL Frameworks
+torch==1.13.1 # Or a more recent stable version like 2.0.1
+torchvision==0.14.1 # Must be compatible with your torch version
+torchaudio==0.13.1 # Must be compatible with your torch version
+
+opencv-python-headless==4.8.0.76 # Headless version is better for servers
+Pillow==9.4.0
+albumentations==1.3.1 # Crucial for your data augmentation pipeline
+
+# Model Architectures and Helper
+timm==0.9.7 
+
+
+numpy==1.24.2
+pandas==1.5.3 # Useful for handling dataframes and results
+scikit-learn  # For calculating metrics like precision, recall, f1-score
+
+
+matplotlib 
+seaborn 
+jupyterlab ##Or jupyter
+notebook
+tqdm # For progress bars during training/evaluation
+

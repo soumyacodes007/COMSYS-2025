@@ -133,5 +133,35 @@ We are committed to a scientifically rigorous and fair evaluation. Our methodolo
 
 
 
+```mermaid
+graph TD
+    subgraph "Input Processing"
+        A[Input Image]
+    end
 
-<pre lang="markdown"> ```mermaid graph TD subgraph "Input Processing" A[Input Image] end subgraph "Parallel Feature Extraction" B(ResNet-34 Backbone) C(ConvNeXt-Tiny Backbone) end subgraph "Embedding Generation" D[512-d Embedding A] E[512-d Embedding B] end subgraph "Ensemble Fusion" F{Normalize & Add} end subgraph "Final Output" G([Final Ensembled Embedding]) end A --> B A --> C B --> D C --> E D --> F E --> F F --> G ``` </pre>
+    subgraph "Parallel Feature Extraction"
+        B(ResNet-34 Backbone)
+        C(ConvNeXt-Tiny Backbone)
+    end
+
+    subgraph "Embedding Generation"
+        D[512-d Embedding A]
+        E[512-d Embedding B]
+    end
+
+    subgraph "Ensemble Fusion"
+        F{Normalize & Add}
+    end
+
+    subgraph "Final Output"
+        G([Final Ensembled Embedding])
+    end
+
+    A --> B
+    A --> C
+    B --> D
+    C --> E
+    D --> F
+    E --> F
+    F --> G
+

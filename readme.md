@@ -1,69 +1,169 @@
 # Robust Face Intelligence Under Adverse Conditions
 ### COMSYS Hackathon-5, 2025 Submission
 
-**Team:** `[Your Team Name]`  
-**Authors:** `[Your Name(s)]`
+
 
 ---
 
-## 🏆 Project Overview & Key Achievements
 
-This project presents our state-of-the-art solution for the "Robust Face Recognition and Gender Classification" challenge. Our approach was driven by a rigorous, data-centric methodology that led to a crucial insight: **Task B was not a classification problem, but a sophisticated face verification task with disjoint identities.**
 
-By correctly framing the problem and employing advanced metric learning techniques, we built a powerful ensemble model that achieves exceptional performance on a fair and robust evaluation protocol.
 
-### Key Achievements:
-*   **Correctly Identified the True Nature of Task B:** Uncovered the disjoint identity sets between training and validation, pivoting our strategy from classification to verification.
-*   **Developed a State-of-the-Art Ensemble Model:** Combined a ResNet-34 and a ConvNeXt-Tiny, trained from scratch with ArcFace loss, to create a highly discriminative feature extractor.
-*   **Implemented a Scientifically Valid Evaluation:** Used a fixed decision threshold determined on the validation set to prevent data leakage and ensure our results reflect true generalization performance.
+## 🛠️ Steps to Run the Solution
+
+To ensure a smooth and reproducible evaluation, please follow these steps precisely. All commands should be executed from the root `COMSYS/` directory.
 
 ---
 
-## 📊 Final Results
+### 🔧 A. Environment Setup
 
-Our final models were evaluated on the validation set, yielding the following robust and reproducible scores.
-
-### Task A - Gender Classification
-| Metric    | Score   |
-| :-------- | :------ |
-| Accuracy  | 94.79%  |
-| Precision | 96.52%  |
-| Recall    | 97.08%  |
-| F1-Score  | 96.80%  |
-
-### Task B - Face Verification (Ensemble Model)
-| Metric                  | Score   |
-| :---------------------- | :------ |
-| Top-1 Accuracy          | 95.10%  |
-| Macro-Averaged F1-Score | 95.09%  |
-
-*These results were achieved using a fixed cosine similarity threshold of `0.31`, which was determined from the validation set to ensure a fair evaluation.*
-
----
-
-## ⚙️ How to Test Our Solution
-
-Follow these steps to set up the environment and run our final evaluation script.
-
-### 1. Setup Environment
-
-First, clone the repository and set up a Python virtual environment.
+#### 1. Clone Repository
 
 ```bash
-# Clone the repository
-git clone https://github.com/your-username/comsys-hackathon-submission.git
-cd comsys-hackathon-submission
+git clone <your-github-repo-link>
+cd COMSYS
+```
 
-# Create and activate a virtual environment
+#### 2. Create and Activate a Virtual Environment (Recommended)
+
+This prevents conflicts with system-wide packages.
+
+```bash
+# For Windows
 python -m venv venv
-# On Windows
 .\venv\Scripts\activate
-# On Mac/Linux
-source venv/bin/activate
+```
 
-# Install all required dependencies
+```bash
+# For macOS/Linux
+python3 -m venv venv
+source venv/bin/activate
+```
+
+#### 3. Install Dependencies
+
+Install all required packages from the `requirements.txt` file.
+
+```bash
 pip install -r requirements.txt
 ```
+
+---
+
+### 🚀 B. Running Evaluation Scripts
+
+After setting up the environment, use the following commands to evaluate each task:
+
+---
+
+#### ✅ To Evaluate Task A (Gender Classification)
+
+```bash
+python test_task_a.py --data_path "/path/to/your/TaskA_data" --model_weights_path "./models/task_A_BEST_model.pth"
+```
+
+> **Note**: Replace `/path/to/your/TaskA_data` with the absolute or relative path to the Task A test dataset folder.
+
+---
+
+#### ✅ To Evaluate Task B (Face Verification)
+
+```bash
+python test_task_b.py --data_path "/path/to/your/TaskB_data" --resnet_weights "./models/task_B_model_strong_aug.pth" --convnext_weights "./models/task_B_convnext_best.pth" --threshold 0.31
+```
+
+> **Note**: Replace `/path/to/your/TaskB_data` with the path to the Task B test dataset folder.  
+> The threshold is pre-set to the optimal value **(0.31)** found during validation.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 📊 3. Training and Validation Results
+
+The following tables show the performance of our final models on the training and validation sets.
+
+---
+
+### **Task A: Gender Classification**
+
+| Phase      | Accuracy | Precision | Recall | F1-Score |
+|------------|----------|-----------|--------|----------|
+| Training   | 0.9985   | 0.9979    | 0.9979 | 0.9979   |
+| Validation | 0.9479   | 0.9177    | 0.9095 | 0.9135   |
+
+---
+
+### **Task B: Face Verification**
+
+*Metrics based on **4000** generated pairs with a threshold of **0.31***
+
+| Phase      | Accuracy | Macro F1-Score |
+|------------|----------|----------------|
+| Training   | 0.9912   | 0.9912         |
+| Validation | 0.9530   | 0.9530         |
+
+
+
+
+
+## 🧠 Model Architecture Description
+
+---
+
+### 🔹 Task A: Gender Classification Model
+
+- **Architecture**: ConvNeXt-Small  
+- **Description**:  
+  We leverage the **ConvNeXt-Small** model, a modern and highly effective convolutional neural network architecture, implemented via the `timm` library.  
+  The model takes a **224×224** image as input and passes it through deep feature extraction layers. The final stage is a **linear classifier** that outputs logits for two classes (**male/female**).  
+
+- **Evaluation Technique**:  
+  Our evaluation script `test_task_a.py` uses **Test-Time Augmentation (TTA)** — predictions for an image and its **horizontal flip** are averaged to improve robustness.
+
+---
+
+### 🔹 Task B: Face Verification Model
+
+- **Architecture**: Ensemble of **ResNet34-ArcFace** and **ConvNeXt-Tiny-ArcFace**  
+- **Description**:  
+  Our solution for face verification is a powerful **ensemble** of two distinct models to enhance feature representation and robustness.
+
+  - **ResNet34-ArcFace**:  
+    Uses a **ResNet34** backbone to extract **512-dimensional** feature embeddings.  
+    Trained using the **ArcFace loss function**, which enforces angular margin between identities for better class separation and compactness.
+
+  - **ConvNeXt-Tiny-ArcFace**:  
+    A **ConvNeXt-Tiny** model trained using the same **ArcFace** metric-learning approach.  
+    Adds architectural diversity by capturing features the ResNet might overlook.
+
+- **Ensemble Strategy**:
+  - During inference, both models generate **512-d embeddings** for a given image.
+  - These embeddings are **L2-normalized**, **added together**, and the result is normalized again.
+  - The final ensembled embedding is used for **cosine similarity** comparison between image pairs.
+  - Verification is done by comparing the cosine similarity score against a **fixed threshold of 0.31**.
+
+
+
+8. Training Methodology
+Framework: PyTorch
+Optimizer: AdamW
+Learning Rate Scheduler: Cosine Annealing with Warmup.
+Loss Functions:
+Task A: Cross-Entropy Loss.
+Task B: Additive Angular Margin Loss (ArcFace).
+Data Augmentation: We used the albumentations library for strong augmentations during training, including random flips, rotations, color jitter, and coarse dropout, to ensure the models generalize well.
+
+
 
 ### 2. Prepare the Data
 
@@ -82,26 +182,10 @@ COMSYS/
 └── ... (other files)
 ```
 
-### 3. Run the Evaluation Script
 
-Run the following single-line command from the root `COMSYS` directory in your terminal. This will evaluate both Task A and Task B and print the final metrics.
 
-```powershell
-python test.py --task_a_data "./Comys_Hackathon5/Comys_Hackathon5/Task_A/val" --task_b_data "./Comys_Hackathon5/Comys_Hackathon5/Task_B/val" --task_a_model_weights "./models/task_A_BEST_model.pth" --task_b_resnet_weights "./models/task_B_model_strong_aug.pth" --task_b_convnext_weights "./models/task_B_convnext_best.pth" --threshold 0.31
-```
 
----
 
-## 🛠️ Technical Architecture
-
-Our winning solution for Task B is an **ensemble of two architecturally diverse models**. An input image is passed through both a ResNet-34 and a ConvNeXt-Tiny. The resulting 512-dimensional embeddings are normalized, added together, and re-normalized to produce a final, supremely robust feature vector.
-
-This approach leverages the different feature hierarchies learned by classic convolutional (ResNet) and modern conv-mixer (ConvNeXt) architectures, canceling out individual model errors.
-
-![Model Architecture Diagram](results/model_architecture.png)
-*(**Note:** You need to create this image. See description below)*
-
----
 
 ## 🛡️ Robustness & Fair Evaluation Card
 
@@ -130,7 +214,100 @@ We are committed to a scientifically rigorous and fair evaluation. Our methodolo
 
 5.  **Final Submission:** We packaged our entire solution into a clean, reproducible repository with a single evaluation script, ensuring our work is transparent, professional, and easy to verify.
 
+## 🏆 Project Overview & Key Achievements
 
+This project presents our state-of-the-art solution for the "Robust Face Recognition and Gender Classification" challenge. Our approach was driven by a rigorous, data-centric methodology that led to a crucial insight: **Task B was not a classification problem, but a sophisticated face verification task with disjoint identities.**
+
+By correctly framing the problem and employing advanced metric learning techniques, we built a powerful ensemble model that achieves exceptional performance on a fair and robust evaluation protocol.
+
+### Key Achievements:
+*   **Correctly Identified the True Nature of Task B:** Uncovered the disjoint identity sets between training and validation, pivoting our strategy from classification to verification.
+*   **Developed a State-of-the-Art Ensemble Model:** Combined a ResNet-34 and a ConvNeXt-Tiny, trained from scratch with ArcFace loss, to create a highly discriminative feature extractor.
+*   **Implemented a Scientifically Valid Evaluation:** Used a fixed decision threshold determined on the validation set to prevent data leakage and ensure our results reflect true generalization performance.
+
+---
+
+
+## 📁 Codebase Structure
+
+Our project is organized into a clean and logical directory structure to separate concerns like data, model definitions, final model weights, and evaluation scripts. This modular approach ensures clarity and makes the project easy to navigate and evaluate.
+
+---
+
+### 🌳 Visual File Tree
+
+```plaintext
+COMSYS/
+│
+├── Comys_Hackathon5/
+│   └── Comys_Hackathon5/
+│       ├── Task_A/                  # Root data folder for Task A
+│       │   ├── train/              # Training images for Task A
+│       │   └── val/                # Validation images for Task A
+│       ├── Task_B/                  # Root data folder for Task B
+│       │   ├── train/              # Training images for Task B
+│       │   └── val/                # Validation images for Task B
+│       └── Eda/                    # (Reference) Exploratory Data Analysis notebooks
+│
+├── models/
+│   ├── task_A_BEST_model.pth       # Final weights for Task A model
+│   ├── task_B_convnext_best.pth    # Final weights for Task B ConvNeXt model
+│   └── task_B_model_strong_aug.pth # Final weights for Task B ResNet model
+│
+├── training_scripts/               # (Reference) Scripts used for model training
+│
+├── __pycache__/                    # Auto-generated Python cache directory
+│
+├── .gitignore                      # Specifies files for Git to ignore
+├── models.py                       # Core module with all model class definitions
+├── README.md                       # This documentation file
+├── requirements.txt                # All Python dependencies
+├── test_task_a.py                  # << EXECUTABLE SCRIPT FOR TASK A >>
+└── test_task_b.py                  # << EXECUTABLE SCRIPT FOR TASK B >>
+```
+
+---
+
+### 🔍 Component Breakdown
+
+#### 📂 COMSYS/ (Root Directory)
+The main project folder that contains all other files and directories.  
+➡️ **All commands should be run from here.**
+
+---
+
+#### ⚙️ Runnable Scripts
+
+- `test_task_a.py`  
+  👉 Official evaluation script for Task A. Loads data/model, performs evaluation, and prints metrics.
+
+- `test_task_b.py`  
+  👉 Official evaluation script for Task B. Loads ensemble models, performs face verification using cosine similarity, and reports accuracy and F1-score.
+
+---
+
+#### 🧠 Core Model Logic
+
+- `models.py`  
+  📌 Central file containing all model definitions:
+  - `GenderClassifier`
+  - `ResNetArcFaceModel`
+  - `ConvNeXtArcFaceModel`
+  - `AlbumentationsDataset`
+
+  The evaluation scripts import these classes directly from here.
+
+---
+
+#### 💾 Model Weights
+
+- `models/`  
+  📁 Stores all final trained `.pth` model weights:
+  - `task_A_BEST_model.pth`
+  - `task_B_convnext_best.pth`
+  - `task_B_model_strong_aug.pth`
+
+---
 
 
 ```mermaid

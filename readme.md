@@ -17,7 +17,7 @@ To ensure a smooth and reproducible evaluation, please follow these steps precis
 #### 1. Clone Repository
 
 ```bash
-git clone <https://github.com/soumyacodes007/COMSYS-2025>
+git clone https://github.com/soumyacodes007/COMSYS-2025
 cd COMSYS-2025
 ```
 

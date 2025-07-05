@@ -20,7 +20,7 @@ MODELS_TO_DOWNLOAD = [
 
 # The target directory based on your project structure
 # os.path.join makes it work on any OS (Windows, Mac, Linux)
-TARGET_DIRECTORY = os.path.join("Comys_Hackathon5", "Comys_Hackathon5", "models")
+TARGET_DIRECTORY = os.path.join("models")
 
 
 def download_all_models():

@@ -1,9 +1,7 @@
 # Robust Face Intelligence Under Adverse Conditions
 ### COMSYS Hackathon-5, 2025 Submission
 
-
-
----
+TEAM : GEN SONIC 
 
 
 
@@ -48,6 +46,91 @@ pip install -r requirements.txt
 ```
 
 ---
+## 🔽 Model Download & Setup
+
+To run the evaluation scripts, you need to download the pretrained model weights and place them correctly. Follow the steps below:
+
+---
+
+### ✅ Steps:
+
+
+## ⬇️ Download Model Weights (Mandatory Step)
+
+Our model weights are hosted on **Google Drive** to keep the repository lightweight. You can download them automatically using our script (**recommended**) or manually.
+
+---
+
+### 🔧 Run the Download Script
+
+From the root of the project, run the following command:
+
+```bash
+python download_models.py
+```
+
+---
+
+### 📤 Expected Output
+
+The script will:
+
+- Check if the `models/` directory exists (create it if missing)
+- Download any missing `.pth` model files from Google Drive
+- Confirm setup status
+
+Sample output:
+
+```bash
+✅ Model setup complete. All required models are in place.
+```
+
+> ⏳ **Note:** Download time may vary depending on your internet speed.
+
+---
+
+💡 *If you face issues with the script, you can also follow the manual download method [described above](#-model-download--setup).*
+
+
+
+
+MANUAL SET UP 
+
+1. **Create the `models` directory**  
+   In the root of the project (`COMSYS/`), create a new folder named:
+
+   ```bash
+   mkdir models
+   ```
+
+2. **Download each model file**  
+   Click the links below to download the required `.pth` files:
+
+| Model for...                          | File Name                    | Download Link                                                                                   |
+|--------------------------------------|------------------------------|--------------------------------------------------------------------------------------------------|
+| Task A (Gender Classification)       | `task_A_BEST_model.pth`      | [Download](https://drive.google.com/file/d/1DEHfGpFBVTe1-IAt7gBOh8yuU6uXSBW9/view?usp=sharing)   |
+| Task B (ConvNeXt Component)          | `task_B_convnext_best.pth`   | [Download](https://drive.google.com/file/d/1oI_dU9bmqLbtIG2uzrEm5Hy3wjNoYaP_/view?usp=sharing)  |
+| Task B (ResNet Component)            | `task_B_model_strong_aug.pth`| ✅ *This file is already present in the GitHub repo under `models/` folder.*                     |
+
+---
+
+3. **Place the Files**  
+   After downloading, move all three `.pth` files into the `models/` directory you created:
+
+   ```bash
+   mv *.pth models/
+   ```
+
+---
+
+> ⚠️ **Note:** If you are using Google Colab or a cloud environment, make sure to upload these files to the appropriate location or mount your Drive before accessing them.
+
+
+
+
+
+
+
 
 ### 🚀 B. Running Evaluation Scripts
 

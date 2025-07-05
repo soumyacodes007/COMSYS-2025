@@ -10,7 +10,7 @@
 
 ## 🛠️ Steps to Run the Solution
 
-To ensure a smooth and reproducible evaluation, please follow these steps precisely. All commands should be executed from the root `COMSYS/` directory.
+To ensure a smooth and reproducible evaluation, please follow these steps precisely. All commands should be executed from the root `COMSYS-2025/` directory.
 
 ---
 
@@ -19,8 +19,8 @@ To ensure a smooth and reproducible evaluation, please follow these steps precis
 #### 1. Clone Repository
 
 ```bash
-git clone <your-github-repo-link>
-cd COMSYS
+git clone <https://github.com/soumyacodes007/COMSYS-2025>
+cd COMSYS-2025
 ```
 
 #### 2. Create and Activate a Virtual Environment (Recommended)

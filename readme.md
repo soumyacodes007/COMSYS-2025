@@ -186,15 +186,15 @@ The following tables show the performance of our final models on the training an
 
 ---
 
-### **Task B: Face Verification**
 
-*Metrics based on **4000** generated pairs with a threshold of **0.31***
+## Task B: Face Verification
 
-| Phase      | Accuracy | Macro F1-Score |
-|------------|----------|----------------|
-| Training   | 0.9912   | 0.9912         |
-| Validation | 0.9530   | 0.9530         |
+**Metrics based on 4000 generated pairs with an optimal threshold of 0.31**
 
+| Phase       | Accuracy | Precision | Recall  | F1-Score |
+|-------------|----------|-----------|---------|----------|
+| Training    | 0.9912   | ~0.990    | ~0.990  | 0.9902   |
+| Validation  | 0.9580   | 0.9814    | 0.9327  | 0.9564   |
 
 
 

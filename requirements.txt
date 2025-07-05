@@ -22,3 +22,7 @@ jupyterlab ##Or jupyter
 notebook
 tqdm # For progress bars during training/evaluation
 
+
+
+
+gdown
